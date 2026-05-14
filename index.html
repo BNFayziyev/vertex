@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Vertex - arxitektura, interyer va loyiha dizayni studiyasi.">
+  <title>Vertex - Architecture & Interior Design</title>
+  <style>
+    :root {
+      --ink: #111111;
+      --paper: #f7f4ee;
+      --muted: #8a867e;
+      --line: rgba(17, 17, 17, 0.14);
+      --green: #12c98b;
+      --charcoal: #2f302d;
+      --max: 1440px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px clamp(18px, 4vw, 58px);
+      color: #ffffff;
+      mix-blend-mode: difference;
+    }
+
+    .menu-open .site-header {
+      mix-blend-mode: normal;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: clamp(112px, 13vw, 176px);
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.4vw, 38px);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav a::after {
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 2px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+      transition: right 180ms ease;
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      right: 0;
+    }
+
+    .menu-button {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      background: transparent;
+      color: currentColor;
+      cursor: pointer;
+    }
+
+    .menu-button span,
+    .menu-button::before,
+    .menu-button::after {
+      display: block;
+      width: 16px;
+      height: 1px;
+      margin: 5px auto;
+      background: currentColor;
+      content: "";
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-open .menu-button span {
+      opacity: 0;
+    }
+
+    .menu-open .menu-button::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-open .menu-button::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 88svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: #ffffff;
+      background: #111111;
+    }
+
+    .hero::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.04) 44%, rgba(0, 0, 0, 0.68)),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.02) 60%);
+      content: "";
+      z-index: 1;
+    }
+
+    .hero-slider,
+    .hero-video,
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-video {
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(1.02) contrast(1.04);
+    }
+
+    .hero-slider {
+      z-index: 0;
+      background: #111111;
+    }
+
+    .hero-slide {
+      opacity: 0;
+      transition: opacity 1200ms ease;
+      overflow: hidden;
+    }
+
+    .hero-slide.is-active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.02);
+      filter: saturate(1.03) contrast(1.04);
+    }
+
+    .hero-slide.is-active img {
+      animation: heroDrift 7200ms cubic-bezier(0.22, 0.74, 0.2, 1) both;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 3;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 132px clamp(20px, 4vw, 64px) clamp(64px, 8vw, 112px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 840px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 6.5vw, 98px);
+      font-weight: 400;
+      line-height: 0.94;
+    }
+
+    .hero-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 28px;
+      margin-top: clamp(28px, 5vw, 64px);
+    }
+
+    .hero-copy {
+      max-width: 540px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.6;
+    }
+
+    .scroll-link {
+      display: inline-grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      border: 1px solid rgba(255, 255, 255, 0.46);
+      border-radius: 50%;
+      font-size: 24px;
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .scroll-link:hover {
+      border-color: #ffffff;
+      transform: translateY(4px);
+    }
+
+    .section {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: clamp(64px, 10vw, 132px) clamp(20px, 4vw, 64px);
+      scroll-margin-top: 86px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.35fr) minmax(0, 0.65fr);
+      gap: clamp(28px, 5vw, 80px);
+      align-items: start;
+      margin-bottom: clamp(38px, 6vw, 78px);
+    }
+
+    .section-kicker {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 78px);
+      font-weight: 400;
+      line-height: 0.98;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 2.6vw, 38px);
+    }
+
+    .portfolio-note {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: clamp(36px, 6vw, 74px);
+      background: var(--line);
+    }
+
+    .portfolio-note div {
+      min-height: 138px;
+      padding: clamp(22px, 3vw, 34px);
+      background: var(--paper);
+    }
+
+    .portfolio-note strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .portfolio-note span {
+      color: #625d55;
+      line-height: 1.55;
+    }
+
+    .project {
+      position: relative;
+      min-height: clamp(430px, 63vw, 760px);
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background: #171717;
+      color: #ffffff;
+      isolation: isolate;
+      transform-style: preserve-3d;
+      box-shadow: 0 24px 70px rgba(17, 17, 17, 0.12);
+    }
+
+    .project:nth-child(3n + 1) {
+      min-height: clamp(520px, 68vw, 860px);
+    }
+
+    .project img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 650ms ease;
+      transform: scale(1.012);
+      z-index: -2;
+    }
+
+    .project::after {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.76));
+      content: "";
+    }
+
+    .project:hover img {
+      transform: scale(1.052) translateY(-8px);
+    }
+
+    .project-info {
+      padding: clamp(24px, 4vw, 48px);
+    }
+
+    .project-number {
+      display: block;
+      margin-bottom: 16px;
+      color: rgba(255, 255, 255, 0.64);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .project h3 {
+      margin: 0 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 4vw, 58px);
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .project p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .motion-band {
+      overflow: hidden;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .motion {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: clamp(112px, 12vw, 160px) clamp(20px, 4vw, 64px) clamp(70px, 10vw, 142px);
+    }
+
+    .motion-heading {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.32fr) minmax(0, 0.68fr);
+      gap: clamp(28px, 5vw, 80px);
+      margin-bottom: clamp(34px, 6vw, 78px);
+    }
+
+    .motion-heading .section-kicker {
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .motion-title {
+      max-width: 850px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 6vw, 92px);
+      font-weight: 400;
+      line-height: 0.96;
+    }
+
+    .motion-stage {
+      position: relative;
+      min-height: clamp(560px, 66vw, 820px);
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      background: #050505;
+      perspective: 1400px;
+      isolation: isolate;
+    }
+
+    .motion-stage::before {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.72), transparent 46%, rgba(0, 0, 0, 0.34)),
+        linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.86));
+      content: "";
+    }
+
+    .motion-frame {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.01);
+      transition: opacity 1100ms ease;
+      will-change: opacity, transform;
+      z-index: 1;
+    }
+
+    .motion-frame.is-active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .motion-frame.was-active {
+      opacity: 0;
+    }
+
+    .motion-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.015);
+    }
+
+    .motion-frame.is-active img {
+      animation: frameBreath 4700ms cubic-bezier(0.22, 0.74, 0.2, 1) both;
+    }
+
+    .motion-copy {
+      position: relative;
+      z-index: 3;
+      width: min(620px, 100%);
+      padding: clamp(24px, 5vw, 54px);
+    }
+
+    .motion-copy h3 {
+      margin: 0 0 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 74px);
+      font-weight: 400;
+      line-height: 0.98;
+    }
+
+    .motion-copy p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: clamp(15px, 1.6vw, 19px);
+      line-height: 1.65;
+    }
+
+    .motion-controls {
+      position: absolute;
+      right: clamp(22px, 4vw, 54px);
+      bottom: clamp(22px, 4vw, 54px);
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .motion-dot {
+      width: 38px;
+      height: 2px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.28);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .motion-dot span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--green);
+      transition: width 260ms ease;
+    }
+
+    .motion-dot.is-active span {
+      width: 100%;
+      transition: width 4300ms linear;
+    }
+
+    .about-band {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .about {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: clamp(70px, 10vw, 136px) clamp(20px, 4vw, 64px);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.42fr) minmax(0, 0.58fr);
+      gap: clamp(36px, 6vw, 100px);
+      align-items: start;
+    }
+
+    .about h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 5vw, 82px);
+      font-weight: 400;
+      line-height: 0.96;
+    }
+
+    .about p {
+      max-width: 690px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: clamp(17px, 2vw, 24px);
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: clamp(46px, 7vw, 86px);
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .stat {
+      min-height: 136px;
+      padding: 28px;
+      background: var(--ink);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 70px);
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .service {
+      min-height: 250px;
+      padding: clamp(26px, 4vw, 42px);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.18);
+      transition: background 220ms ease, transform 220ms ease;
+    }
+
+    .service:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .service:hover {
+      background: rgba(255, 255, 255, 0.48);
+      transform: translateY(-3px);
+    }
+
+    .service span {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+    }
+
+    .service h3 {
+      margin: 0 0 18px;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.1;
+    }
+
+    .service p {
+      margin: 0;
+      color: #615d55;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .contact-band {
+      background: var(--charcoal);
+      color: #ffffff;
+    }
+
+    .contact {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.4fr);
+      gap: clamp(36px, 7vw, 110px);
+      padding: clamp(70px, 10vw, 132px) clamp(20px, 4vw, 64px);
+    }
+
+    .contact h2 {
+      max-width: 900px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(42px, 7vw, 112px);
+      font-weight: 400;
+      line-height: 0.94;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 24px;
+      align-content: end;
+    }
+
+    .contact-item {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .contact-item:hover {
+      border-color: rgba(18, 201, 139, 0.7);
+      transform: translateX(4px);
+    }
+
+    .contact-label {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-size: clamp(18px, 2vw, 25px);
+      line-height: 1.45;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 28px clamp(20px, 4vw, 64px);
+      background: var(--charcoal);
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .footer img {
+      width: 106px;
+      filter: brightness(0) invert(1);
+      opacity: 0.76;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes heroDrift {
+      from {
+        transform: scale(1.02) translate3d(-0.7%, -0.4%, 0);
+      }
+
+      to {
+        transform: scale(1.075) translate3d(0.8%, 0.45%, 0);
+      }
+    }
+
+    @keyframes frameBreath {
+      from {
+        transform: scale(1.015) translate3d(-0.6%, -0.25%, 0);
+      }
+
+      to {
+        transform: scale(1.065) translate3d(0.7%, 0.35%, 0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        padding: 18px 20px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        display: grid;
+        place-content: center;
+        gap: 24px;
+        background: rgba(16, 16, 16, 0.96);
+        color: #ffffff;
+        font-size: 22px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+      }
+
+      .menu-open .nav {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .hero {
+        min-height: 86svh;
+      }
+
+      .hero-row,
+      .section-heading,
+      .about-grid,
+      .contact,
+      .motion-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .scroll-link {
+        justify-self: start;
+      }
+
+      .portfolio,
+      .services,
+      .portfolio-note {
+        grid-template-columns: 1fr;
+      }
+
+      .motion-stage {
+        min-height: 720px;
+      }
+
+      .motion-controls {
+        left: 22px;
+        right: auto;
+      }
+
+      .project,
+      .project:nth-child(3n + 1) {
+        min-height: min(680px, 122vw);
+      }
+
+      .service,
+      .service:nth-child(3n) {
+        border-right: 0;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner {
+        padding-top: 150px;
+      }
+
+      .eyebrow {
+        max-width: 100%;
+        font-size: 10px;
+        letter-spacing: 0.13em;
+        line-height: 1.4;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .project-info {
+        padding: 22px;
+      }
+
+      .motion-stage {
+        min-height: 680px;
+      }
+
+      .motion-copy {
+        padding: 24px 20px 82px;
+      }
+
+      .motion-dot {
+        width: 28px;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Vertex bosh sahifa">
+      <img src="img/vertex-logo-white.png" alt="Vertex">
+    </a>
+    <button class="menu-button" type="button" aria-label="Menyuni ochish" aria-controls="site-nav" aria-expanded="false">
+      <span></span>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Asosiy menyu">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#motion">Motion</a>
+      <a href="#about">Studio</a>
+      <a href="#services">Xizmatlar</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Vertex">
+      <video class="hero-video" src="img/hero-classic-exterior.mp4" poster="img/1 (3).jpg" autoplay muted loop playsinline></video>
+      <div class="hero-slider" aria-hidden="true">
+        <div class="hero-slide is-active">
+          <img src="img/1 (3).jpg" alt="">
+        </div>
+        <div class="hero-slide">
+          <img src="img/12.jpg" alt="">
+        </div>
+        <div class="hero-slide">
+          <img src="img/4 (3).jpg" alt="">
+        </div>
+        <div class="hero-slide">
+          <img src="img/6 (3).jpg" alt="">
+        </div>
+      </div>
+      <div class="hero-inner">
+        <p class="eyebrow">Architecture / Interior / Design</p>
+        <h1>Makon uchun sokin, aniq va nafis yechimlar.</h1>
+        <div class="hero-row">
+          <p class="hero-copy">Vertex interyer, arxitektura va vizual konsepsiyalarni tabiat, yorug'lik va kundalik hayot ritmi bilan uyg'unlashtiradi.</p>
+          <a class="scroll-link" href="#portfolio" aria-label="Portfolioga o'tish">&darr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="portfolio">
+      <div class="section-heading reveal">
+        <p class="section-kicker">Portfolio</p>
+        <h2 class="section-title">Detallarga boy, zamonaviy klassika ruhidagi interyerlar.</h2>
+      </div>
+
+      <div class="portfolio">
+        <article class="project reveal">
+          <img src="img/1 (3).jpg" alt="Dining room interior">
+          <div class="project-info">
+            <span class="project-number">01 / Interior</span>
+            <h3>Dining Hall</h3>
+            <p>Private residence</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="img/6 (2).jpg" alt="Living room interior">
+          <div class="project-info">
+            <span class="project-number">02 / Living</span>
+            <h3>Soft Classic</h3>
+            <p>Apartment design</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="img/1.jpg" alt="Bedroom interior">
+          <div class="project-info">
+            <span class="project-number">03 / Bedroom</span>
+            <h3>Calm Suite</h3>
+            <p>Master bedroom</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="img/3 (3).jpg" alt="Dining space interior">
+          <div class="project-info">
+            <span class="project-number">04 / Dining</span>
+            <h3>Formal Room</h3>
+            <p>Classic interior</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="img/7 (2).jpg" alt="Sitting area interior">
+          <div class="project-info">
+            <span class="project-number">05 / Lounge</span>
+            <h3>Marble Lounge</h3>
+            <p>Residential concept</p>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="img/9.jpg" alt="Living area with TV wall">
+          <div class="project-info">
+            <span class="project-number">06 / Media</span>
+            <h3>Evening Room</h3>
+            <p>Interior visualization</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="portfolio-note reveal">
+        <div>
+          <strong>Atmosfera</strong>
+          <span>Yorug'lik, material va ranglar bitta sokin kompozitsiyaga yig'iladi.</span>
+        </div>
+        <div>
+          <strong>Proporsiya</strong>
+          <span>Har bir devor, mebel va dekor joyi makon ritmiga moslanadi.</span>
+        </div>
+        <div>
+          <strong>Realizatsiya</strong>
+          <span>G'oyadan chizmagacha bo'lgan jarayon tartibli va tushunarli olib boriladi.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="motion-band" id="motion">
+      <div class="motion">
+        <div class="motion-heading reveal">
+          <p class="section-kicker">Cinematic motion tour</p>
+          <h2 class="motion-title">Interyer rakurslari sokin kamera harakati bilan bir oqimga ulanadi.</h2>
+        </div>
+
+        <div class="motion-stage reveal" aria-label="Interior cinematic tour">
+          <div class="motion-frame is-active">
+            <img src="img/video-frames/frame-01.jpg" alt="Dining hall main angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-02.jpg" alt="Dining hall side angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-03.jpg" alt="Dining hall close angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-04.jpg" alt="Dining hall frontal angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-05.jpg" alt="Dining hall window angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-06.jpg" alt="Dining table top angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-07.jpg" alt="Dining room symmetrical angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-08.jpg" alt="Dining room chandelier angle">
+          </div>
+          <div class="motion-frame">
+            <img src="img/video-frames/frame-09.jpg" alt="Classic dining view">
+          </div>
+
+          <div class="motion-copy">
+            <h3>Interior Walkthrough</h3>
+            <p>Rakurslar makonning yorug'ligi, mebel ritmi va dekor detallarini bir qarashda his qildiradi.</p>
+          </div>
+
+          <div class="motion-controls" aria-label="Motion tour controls">
+            <button class="motion-dot is-active" type="button" aria-label="1-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="2-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="3-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="4-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="5-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="6-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="7-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="8-rakurs"><span></span></button>
+            <button class="motion-dot" type="button" aria-label="9-rakurs"><span></span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-band" id="about">
+      <div class="about">
+        <div class="about-grid reveal">
+          <h2>Har bir loyiha makonning ovozi, yorug'ligi va hayot tarzi bilan boshlanadi.</h2>
+          <p>Biz interyerni faqat chiroyli tasvir sifatida emas, yashashga qulay va uzoq vaqt qadri yo'qolmaydigan muhit sifatida ko'ramiz. Har bir qaror kompozitsiya, material va foydalanish qulayligi bilan asoslanadi.</p>
+        </div>
+        <div class="stats reveal" aria-label="Studio ko'rsatkichlari">
+          <div class="stat">
+            <strong>3D</strong>
+            <span>Fotoreal vizual</span>
+          </div>
+          <div class="stat">
+            <strong>360</strong>
+            <span>To'liq yondashuv</span>
+          </div>
+          <div class="stat">
+            <strong>1:1</strong>
+            <span>Shaxsiy konsepsiya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-heading reveal">
+        <p class="section-kicker">Xizmatlar</p>
+        <h2 class="section-title">Loyihani g'oyadan tayyor konsepsiyagacha olib boramiz.</h2>
+      </div>
+
+      <div class="services reveal">
+        <article class="service">
+          <span>01</span>
+          <h3>Interyer dizayni</h3>
+          <p>Rejalashtirish, stilistika, rang va materiallar tanlovi, mebel joylashuvi.</p>
+        </article>
+        <article class="service">
+          <span>02</span>
+          <h3>Arxitektura konsepsiyasi</h3>
+          <p>Uy, villa va tijoriy obyektlar uchun hajm, fasad va makon ssenariysi.</p>
+        </article>
+        <article class="service">
+          <span>03</span>
+          <h3>3D vizualizatsiya</h3>
+          <p>Yakuniy makonni oldindan ko'rish uchun fotorealistik renderlar.</p>
+        </article>
+        <article class="service">
+          <span>04</span>
+          <h3>Working drawings</h3>
+          <p>Usta va pudratchilar uchun aniq chizmalar, o'lchamlar va texnik paket.</p>
+        </article>
+        <article class="service">
+          <span>05</span>
+          <h3>Material selection</h3>
+          <p>Pol, devor, yoritish, tekstil va dekor bo'yicha uyg'un tanlovlar.</p>
+        </article>
+        <article class="service">
+          <span>06</span>
+          <h3>Mualliflik nazorati</h3>
+          <p>Loyiha realizatsiyasi davomida dizayn qarorlarining saqlanishini kuzatish.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact-band" id="contact">
+      <div class="contact">
+        <h2 class="reveal">Yangi makon haqida suhbatni boshlaymiz.</h2>
+        <div class="contact-list reveal">
+          <div class="contact-item">
+            <span class="contact-label">Location</span>
+            <div class="contact-value">Tashkent, Uzbekistan</div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Projects</span>
+            <div class="contact-value">Residential / Commercial / Visualisation</div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Contact</span>
+            <div class="contact-value">Telegram / Instagram / Email</div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <img src="img/vertex-logo-white.png" alt="Vertex">
+        <span>&copy; 2026 Vertex - Architecture & Interior Design</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector(".menu-button");
+    const navLinks = document.querySelectorAll(".nav a");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = document.body.classList.toggle("menu-open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        document.body.classList.remove("menu-open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    document.querySelectorAll(".portfolio .reveal, .services .service").forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 90, 360)}ms`;
+    });
+
+    const heroSlides = Array.from(document.querySelectorAll(".hero-slide"));
+    let activeHero = 0;
+
+    function setHeroSlide(index) {
+      heroSlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === index);
+      });
+      activeHero = index;
+    }
+
+    if (heroSlides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.setInterval(() => {
+        setHeroSlide((activeHero + 1) % heroSlides.length);
+      }, 6200);
+    }
+
+    const motionStage = document.querySelector(".motion-stage");
+    const motionFrames = Array.from(document.querySelectorAll(".motion-frame"));
+    const motionDots = Array.from(document.querySelectorAll(".motion-dot"));
+    const motionInterval = 4300;
+    let activeMotion = 0;
+    let motionTimer;
+
+    function setMotionFrame(index) {
+      motionFrames.forEach((frame, frameIndex) => {
+        frame.style.transform = "";
+        frame.classList.toggle("is-active", frameIndex === index);
+        frame.classList.toggle("was-active", frameIndex === activeMotion && frameIndex !== index);
+      });
+
+      motionDots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === index);
+      });
+
+      activeMotion = index;
+    }
+
+    function playMotion() {
+      window.clearInterval(motionTimer);
+      motionTimer = window.setInterval(() => {
+        setMotionFrame((activeMotion + 1) % motionFrames.length);
+      }, motionInterval);
+    }
+
+    motionDots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        setMotionFrame(index);
+        playMotion();
+      });
+    });
+
+    if (motionStage && motionFrames.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      playMotion();
+
+      motionStage.addEventListener("pointermove", (event) => {
+        const rect = motionStage.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        motionFrames[activeMotion].style.transform = `scale(1.012) translate3d(${x * -10}px, ${y * -8}px, 0)`;
+      });
+
+      motionStage.addEventListener("pointerleave", () => {
+        motionFrames[activeMotion].style.transform = "";
+      });
+    }
+  </script>
+</body>
+</html>
