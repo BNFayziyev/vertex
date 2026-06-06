@@ -3,17 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Vertex - arxitektura, interyer va loyiha dizayni studiyasi.">
+  <meta name="description" content="Vertex - architecture and interior design studio.">
   <title>Vertex - Architecture & Interior Design</title>
   <style>
     :root {
-      --ink: #111111;
-      --paper: #f7f4ee;
-      --muted: #8a867e;
-      --line: rgba(17, 17, 17, 0.14);
-      --green: #12c98b;
-      --charcoal: #2f302d;
-      --max: 1440px;
+      --ink: #171717;
+      --soft: #f4f1eb;
+      --muted: #7d7d7d;
+      --line: rgba(23, 23, 23, 0.12);
+      --max: 1540px;
     }
 
     * {
@@ -26,7 +24,7 @@
 
     body {
       margin: 0;
-      background: var(--paper);
+      background: var(--soft);
       color: var(--ink);
       font-family: Inter, Arial, Helvetica, sans-serif;
       letter-spacing: 0;
@@ -36,14 +34,16 @@
       overflow: hidden;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    img,
+    video,
+    iframe {
+      display: block;
+      max-width: 100%;
     }
 
     .site-header {
@@ -54,34 +54,17 @@
       right: 0;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 22px clamp(18px, 4vw, 58px);
-      color: #ffffff;
+      justify-content: flex-end;
+      gap: 28px;
+      padding: 28px clamp(18px, 4vw, 64px);
+      color: #fff;
       mix-blend-mode: difference;
-    }
-
-    .menu-open .site-header {
-      mix-blend-mode: normal;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand img {
-      width: clamp(112px, 13vw, 176px);
-      height: auto;
-      filter: brightness(0) invert(1);
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: clamp(16px, 2.4vw, 38px);
+      gap: clamp(20px, 3vw, 44px);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.16em;
@@ -95,9 +78,9 @@
 
     .nav a::after {
       position: absolute;
-      left: 0;
       right: 100%;
-      bottom: 2px;
+      bottom: 3px;
+      left: 0;
       height: 1px;
       background: currentColor;
       content: "";
@@ -113,7 +96,7 @@
       display: none;
       width: 42px;
       height: 42px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 50%;
       background: transparent;
       color: currentColor;
@@ -146,593 +129,253 @@
 
     .hero {
       position: relative;
-      min-height: 88svh;
+      min-height: 100svh;
       display: grid;
-      align-items: end;
+      place-items: center;
       overflow: hidden;
-      color: #ffffff;
-      background: #111111;
+      background: #050505;
+      color: #fff;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.46) saturate(0.94) contrast(1.08);
     }
 
     .hero::after {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.04) 44%, rgba(0, 0, 0, 0.68)),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.02) 60%);
+        radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.54) 68%),
+        rgba(0, 0, 0, 0.26);
       content: "";
-      z-index: 1;
     }
 
-    .hero-slider,
-    .hero-video,
-    .hero-slide {
-      position: absolute;
-      inset: 0;
-    }
-
-    .hero-video {
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: saturate(1.02) contrast(1.04);
-    }
-
-    .hero-slider {
-      z-index: 0;
-      background: #111111;
-    }
-
-    .hero-slide {
-      opacity: 0;
-      transition: opacity 1200ms ease;
-      overflow: hidden;
-    }
-
-    .hero-slide.is-active {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .hero-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      transform: scale(1.02);
-      filter: saturate(1.03) contrast(1.04);
-    }
-
-    .hero-slide.is-active img {
-      animation: heroDrift 7200ms cubic-bezier(0.22, 0.74, 0.2, 1) both;
-    }
-
-    .hero-inner {
+    .hero-logo {
       position: relative;
-      z-index: 3;
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: 132px clamp(20px, 4vw, 64px) clamp(64px, 8vw, 112px);
-    }
-
-    .eyebrow {
-      margin: 0 0 16px;
-      color: rgba(255, 255, 255, 0.68);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 840px;
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(44px, 6.5vw, 98px);
-      font-weight: 400;
-      line-height: 0.94;
-    }
-
-    .hero-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: end;
-      gap: 28px;
-      margin-top: clamp(28px, 5vw, 64px);
-    }
-
-    .hero-copy {
-      max-width: 540px;
-      margin: 0;
-      color: rgba(255, 255, 255, 0.86);
-      font-size: clamp(16px, 2vw, 20px);
-      line-height: 1.6;
+      z-index: 2;
+      width: clamp(190px, 24vw, 430px);
+      filter: drop-shadow(0 24px 55px rgba(0, 0, 0, 0.48));
     }
 
     .scroll-link {
-      display: inline-grid;
+      position: absolute;
+      z-index: 3;
+      right: clamp(22px, 5vw, 74px);
+      bottom: clamp(24px, 5vw, 68px);
+      display: grid;
+      width: 54px;
+      height: 54px;
       place-items: center;
-      width: 58px;
-      height: 58px;
-      border: 1px solid rgba(255, 255, 255, 0.46);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 50%;
+      color: #fff;
       font-size: 24px;
-      transition: border-color 180ms ease, transform 180ms ease;
-    }
-
-    .scroll-link:hover {
-      border-color: #ffffff;
-      transform: translateY(4px);
     }
 
     .section {
       width: min(100%, var(--max));
       margin: 0 auto;
-      padding: clamp(64px, 10vw, 132px) clamp(20px, 4vw, 64px);
-      scroll-margin-top: 86px;
+      padding: clamp(64px, 9vw, 132px) clamp(16px, 4vw, 64px);
     }
 
-    .section-heading {
-      display: grid;
-      grid-template-columns: minmax(180px, 0.35fr) minmax(0, 0.65fr);
-      gap: clamp(28px, 5vw, 80px);
-      align-items: start;
-      margin-bottom: clamp(38px, 6vw, 78px);
+    .portfolio-section {
+      width: 100%;
+      max-width: none;
+      padding-right: 0;
+      padding-left: 0;
     }
 
-    .section-kicker {
+    .portfolio-section .section-head {
+      width: min(calc(100% - clamp(32px, 8vw, 128px)), var(--max));
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: clamp(28px, 4vw, 56px);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+    }
+
+    .section-head h1,
+    .section-head h2 {
       margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 7vw, 112px);
+      font-weight: 400;
+      line-height: 0.92;
+    }
+
+    .section-head span {
       color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .section-title {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 78px);
-      font-weight: 400;
-      line-height: 0.98;
-    }
-
-    .portfolio {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(16px, 2.6vw, 38px);
-    }
-
-    .portfolio-note {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      margin-top: clamp(36px, 6vw, 74px);
-      background: var(--line);
-    }
-
-    .portfolio-note div {
-      min-height: 138px;
-      padding: clamp(22px, 3vw, 34px);
-      background: var(--paper);
-    }
-
-    .portfolio-note strong {
-      display: block;
-      margin-bottom: 12px;
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .portfolio-note span {
-      color: #625d55;
-      line-height: 1.55;
-    }
-
-    .project {
-      position: relative;
-      min-height: clamp(430px, 63vw, 760px);
-      display: grid;
-      align-items: end;
-      overflow: hidden;
-      background: #171717;
-      color: #ffffff;
-      isolation: isolate;
-      transform-style: preserve-3d;
-      box-shadow: 0 24px 70px rgba(17, 17, 17, 0.12);
-    }
-
-    .project:nth-child(3n + 1) {
-      min-height: clamp(520px, 68vw, 860px);
-    }
-
-    .project img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 650ms ease;
-      transform: scale(1.012);
-      z-index: -2;
-    }
-
-    .project::after {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.76));
-      content: "";
-    }
-
-    .project:hover img {
-      transform: scale(1.052) translateY(-8px);
-    }
-
-    .project-info {
-      padding: clamp(24px, 4vw, 48px);
-    }
-
-    .project-number {
-      display: block;
-      margin-bottom: 16px;
-      color: rgba(255, 255, 255, 0.64);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .project h3 {
-      margin: 0 0 8px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(30px, 4vw, 58px);
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .project p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .motion-band {
+    .ribbon {
+      width: 100vw;
       overflow: hidden;
-      background: #111111;
-      color: #ffffff;
+      margin: 18px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: clamp(14px, 2vw, 24px) 0;
     }
 
-    .motion {
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: clamp(112px, 12vw, 160px) clamp(20px, 4vw, 64px) clamp(70px, 10vw, 142px);
+    .ribbon-track {
+      display: flex;
+      width: max-content;
+      gap: clamp(14px, 2vw, 26px);
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
 
-    .motion-heading {
-      display: grid;
-      grid-template-columns: minmax(180px, 0.32fr) minmax(0, 0.68fr);
-      gap: clamp(28px, 5vw, 80px);
-      margin-bottom: clamp(34px, 6vw, 78px);
-    }
-
-    .motion-heading .section-kicker {
-      color: rgba(255, 255, 255, 0.48);
-    }
-
-    .motion-title {
-      max-width: 850px;
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(36px, 6vw, 92px);
-      font-weight: 400;
-      line-height: 0.96;
-    }
-
-    .motion-stage {
-      position: relative;
-      min-height: clamp(560px, 66vw, 820px);
-      display: grid;
-      align-items: end;
+    .ribbon-card {
+      flex: 0 0 clamp(240px, 31vw, 530px);
+      height: clamp(180px, 31vw, 470px);
       overflow: hidden;
-      background: #050505;
-      perspective: 1400px;
-      isolation: isolate;
+      background: #ddd7cf;
     }
 
-    .motion-stage::before {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(0, 0, 0, 0.72), transparent 46%, rgba(0, 0, 0, 0.34)),
-        linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.86));
-      content: "";
-    }
-
-    .motion-frame {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transform: scale(1.01);
-      transition: opacity 1100ms ease;
-      will-change: opacity, transform;
-      z-index: 1;
-    }
-
-    .motion-frame.is-active {
-      opacity: 1;
-      z-index: 1;
-    }
-
-    .motion-frame.was-active {
-      opacity: 0;
-    }
-
-    .motion-frame img {
+    .ribbon-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transform: scale(1.015);
+      transition: transform 500ms ease, filter 500ms ease;
     }
 
-    .motion-frame.is-active img {
-      animation: frameBreath 4700ms cubic-bezier(0.22, 0.74, 0.2, 1) both;
+    .ribbon:hover .ribbon-card img {
+      filter: saturate(1.04) contrast(1.03);
     }
 
-    .motion-copy {
+    .ribbon-card:hover img {
+      transform: scale(1.045);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(14px, 2vw, 28px);
+    }
+
+    .video-card {
       position: relative;
-      z-index: 3;
-      width: min(620px, 100%);
-      padding: clamp(24px, 5vw, 54px);
+      min-height: clamp(420px, 58vw, 720px);
+      overflow: hidden;
+      background: #0d0d0d;
     }
 
-    .motion-copy h3 {
-      margin: 0 0 16px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 74px);
-      font-weight: 400;
-      line-height: 0.98;
-    }
-
-    .motion-copy p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: clamp(15px, 1.6vw, 19px);
-      line-height: 1.65;
-    }
-
-    .motion-controls {
-      position: absolute;
-      right: clamp(22px, 4vw, 54px);
-      bottom: clamp(22px, 4vw, 54px);
-      z-index: 4;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .motion-dot {
-      width: 38px;
-      height: 2px;
-      border: 0;
-      background: rgba(255, 255, 255, 0.28);
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .motion-dot span {
-      display: block;
-      width: 0;
-      height: 100%;
-      background: var(--green);
-      transition: width 260ms ease;
-    }
-
-    .motion-dot.is-active span {
+    .video-card video {
       width: 100%;
-      transition: width 4300ms linear;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      filter: brightness(0.76) contrast(1.04);
     }
 
-    .about-band {
-      background: var(--ink);
-      color: #ffffff;
-    }
-
-    .about {
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: clamp(70px, 10vw, 136px) clamp(20px, 4vw, 64px);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: minmax(220px, 0.42fr) minmax(0, 0.58fr);
-      gap: clamp(36px, 6vw, 100px);
-      align-items: start;
-    }
-
-    .about h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(36px, 5vw, 82px);
-      font-weight: 400;
-      line-height: 0.96;
-    }
-
-    .about p {
-      max-width: 690px;
-      margin: 0;
-      color: rgba(255, 255, 255, 0.74);
-      font-size: clamp(17px, 2vw, 24px);
-      line-height: 1.6;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      margin-top: clamp(46px, 7vw, 86px);
-      background: rgba(255, 255, 255, 0.16);
-    }
-
-    .stat {
-      min-height: 136px;
-      padding: 28px;
-      background: var(--ink);
-    }
-
-    .stat strong {
-      display: block;
-      margin-bottom: 12px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 70px);
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .stat span {
-      color: rgba(255, 255, 255, 0.62);
+    .video-card span {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      color: #fff;
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.15em;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
-    }
-
-    .service {
-      min-height: 250px;
-      padding: clamp(26px, 4vw, 42px);
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.18);
-      transition: background 220ms ease, transform 220ms ease;
-    }
-
-    .service:nth-child(3n) {
-      border-right: 0;
-    }
-
-    .service:hover {
-      background: rgba(255, 255, 255, 0.48);
-      transform: translateY(-3px);
-    }
-
-    .service span {
-      display: block;
-      margin-bottom: 24px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.18em;
-    }
-
-    .service h3 {
-      margin: 0 0 18px;
-      font-size: clamp(20px, 2vw, 28px);
-      line-height: 1.1;
-    }
-
-    .service p {
-      margin: 0;
-      color: #615d55;
-      font-size: 15px;
-      line-height: 1.6;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
     }
 
     .contact-band {
-      background: var(--charcoal);
-      color: #ffffff;
+      background: #fff;
     }
 
     .contact {
+      display: grid;
+      grid-template-columns: minmax(160px, 0.72fr) 1fr 1fr 1.1fr;
+      gap: clamp(26px, 5vw, 90px);
       width: min(100%, var(--max));
       margin: 0 auto;
+      padding: clamp(56px, 7vw, 108px) clamp(18px, 4vw, 64px);
+      align-items: start;
+    }
+
+    .contact-logo {
+      width: clamp(130px, 15vw, 230px);
+      filter: invert(1);
+    }
+
+    .contact-block {
       display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.4fr);
-      gap: clamp(36px, 7vw, 110px);
-      padding: clamp(70px, 10vw, 132px) clamp(20px, 4vw, 64px);
-    }
-
-    .contact h2 {
-      max-width: 900px;
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(42px, 7vw, 112px);
-      font-weight: 400;
-      line-height: 0.94;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 24px;
-      align-content: end;
-    }
-
-    .contact-item {
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
-      transition: border-color 180ms ease, transform 180ms ease;
-    }
-
-    .contact-item:hover {
-      border-color: rgba(18, 201, 139, 0.7);
-      transform: translateX(4px);
-    }
-
-    .contact-label {
-      display: block;
-      margin-bottom: 10px;
-      color: rgba(255, 255, 255, 0.52);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-    }
-
-    .contact-value {
-      font-size: clamp(18px, 2vw, 25px);
+      gap: 14px;
+      color: #767676;
+      font-size: clamp(14px, 1.45vw, 18px);
       line-height: 1.45;
     }
 
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      width: min(100%, var(--max));
-      margin: 0 auto;
-      padding: 28px clamp(20px, 4vw, 64px);
-      background: var(--charcoal);
-      color: rgba(255, 255, 255, 0.58);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .contact-block b {
+      color: var(--ink);
+      font-weight: 600;
     }
 
-    .footer img {
-      width: 106px;
-      filter: brightness(0) invert(1);
-      opacity: 0.76;
+    .contact-block a {
+      width: fit-content;
+      border-bottom: 1px solid currentColor;
+      color: #111;
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .socials a {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: #777;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .copyright {
+      margin-top: 28px;
+      color: #888;
+      font-size: 12px;
+    }
+
+    .map {
+      height: clamp(420px, 55vw, 620px);
+      overflow: hidden;
+      background: #d7d7d7;
+      filter: grayscale(1) contrast(0.84) brightness(1.05);
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 600ms ease, transform 600ms ease;
+      transform: translateY(24px);
+      transition: opacity 700ms ease, transform 700ms ease;
     }
 
     .reveal.is-visible {
@@ -740,45 +383,26 @@
       transform: translateY(0);
     }
 
-    @keyframes heroDrift {
-      from {
-        transform: scale(1.02) translate3d(-0.7%, -0.4%, 0);
-      }
-
-      to {
-        transform: scale(1.075) translate3d(0.8%, 0.45%, 0);
-      }
-    }
-
-    @keyframes frameBreath {
-      from {
-        transform: scale(1.015) translate3d(-0.6%, -0.25%, 0);
-      }
-
-      to {
-        transform: scale(1.065) translate3d(0.7%, 0.35%, 0);
-      }
-    }
-
     @media (max-width: 900px) {
       .site-header {
-        padding: 18px 20px;
+        mix-blend-mode: normal;
       }
 
       .menu-button {
         display: block;
+        position: relative;
+        z-index: 22;
       }
 
       .nav {
         position: fixed;
         inset: 0;
-        z-index: -1;
         display: grid;
         place-content: center;
-        gap: 24px;
-        background: rgba(16, 16, 16, 0.96);
-        color: #ffffff;
-        font-size: 22px;
+        gap: 22px;
+        background: rgba(10, 10, 10, 0.94);
+        color: #fff;
+        font-size: 18px;
         opacity: 0;
         pointer-events: none;
         transition: opacity 180ms ease;
@@ -789,100 +413,48 @@
         pointer-events: auto;
       }
 
-      .hero {
-        min-height: 86svh;
+      .section-head {
+        display: grid;
+        align-items: start;
       }
 
-      .hero-row,
-      .section-heading,
-      .about-grid,
-      .contact,
-      .motion-heading {
+      .video-grid,
+      .contact {
         grid-template-columns: 1fr;
       }
 
-      .scroll-link {
-        justify-self: start;
+      .video-card {
+        min-height: 72svh;
       }
 
-      .portfolio,
-      .services,
-      .portfolio-note {
-        grid-template-columns: 1fr;
-      }
-
-      .motion-stage {
-        min-height: 720px;
-      }
-
-      .motion-controls {
-        left: 22px;
-        right: auto;
-      }
-
-      .project,
-      .project:nth-child(3n + 1) {
-        min-height: min(680px, 122vw);
-      }
-
-      .service,
-      .service:nth-child(3n) {
-        border-right: 0;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
+      .contact {
+        gap: 30px;
       }
     }
 
     @media (max-width: 560px) {
-      .hero-inner {
-        padding-top: 150px;
+      .site-header {
+        padding: 18px;
       }
 
-      .eyebrow {
-        max-width: 100%;
-        font-size: 10px;
-        letter-spacing: 0.13em;
-        line-height: 1.4;
+      .ribbon-card {
+        flex-basis: 78vw;
+        height: 70vw;
       }
 
-      .hero-copy {
-        font-size: 15px;
-      }
-
-      .project-info {
-        padding: 22px;
-      }
-
-      .motion-stage {
-        min-height: 680px;
-      }
-
-      .motion-copy {
-        padding: 24px 20px 82px;
-      }
-
-      .motion-dot {
-        width: 28px;
-      }
-
-      .footer {
-        align-items: flex-start;
-        flex-direction: column;
+      .scroll-link {
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
       *,
       *::before,
       *::after {
+        scroll-behavior: auto !important;
         animation-duration: 1ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 1ms !important;
       }
     }
@@ -890,267 +462,199 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Vertex bosh sahifa">
-      <img src="img/vertex-logo-white.png" alt="Vertex">
-    </a>
     <button class="menu-button" type="button" aria-label="Menyuni ochish" aria-controls="site-nav" aria-expanded="false">
       <span></span>
     </button>
     <nav class="nav" id="site-nav" aria-label="Asosiy menyu">
       <a href="#portfolio">Portfolio</a>
-      <a href="#motion">Motion</a>
-      <a href="#about">Studio</a>
-      <a href="#services">Xizmatlar</a>
+      <a href="#videos">Video</a>
       <a href="#contact">Kontakt</a>
     </nav>
   </header>
 
-  <main id="top">
-    <section class="hero" aria-label="Vertex">
-      <video class="hero-video" src="img/hero-classic-exterior.mp4" poster="img/1 (3).jpg" autoplay muted loop playsinline></video>
-      <div class="hero-slider" aria-hidden="true">
-        <div class="hero-slide is-active">
-          <img src="img/1 (3).jpg" alt="">
-        </div>
-        <div class="hero-slide">
-          <img src="img/12.jpg" alt="">
-        </div>
-        <div class="hero-slide">
-          <img src="img/4 (3).jpg" alt="">
-        </div>
-        <div class="hero-slide">
-          <img src="img/6 (3).jpg" alt="">
+  <main>
+    <section class="hero" id="top" aria-label="Vertex">
+      <video class="hero-video" src="img/0310.mp4" poster="img/1 (3).jpg" autoplay muted loop playsinline></video>
+      <img class="hero-logo" src="img/vertex-logo-white.png" alt="Vertex">
+      <a class="scroll-link" href="#portfolio" aria-label="Portfolioga o'tish">&darr;</a>
+    </section>
+
+    <section class="section portfolio-section" id="portfolio">
+      <div class="section-head reveal">
+        <h1>Portfolio</h1>
+        <span>Hover to move</span>
+      </div>
+
+      <div class="ribbon reveal" aria-label="Portfolio 01">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/01/1.jpg"><img src="img/01/1.jpg" alt="Portfolio 01 image 1"></a>
+          <a class="ribbon-card" href="img/01/2.jpg"><img src="img/01/2.jpg" alt="Portfolio 01 image 2"></a>
+          <a class="ribbon-card" href="img/01/3.jpg"><img src="img/01/3.jpg" alt="Portfolio 01 image 3"></a>
+          <a class="ribbon-card" href="img/01/4.jpg"><img src="img/01/4.jpg" alt="Portfolio 01 image 4"></a>
+          <a class="ribbon-card" href="img/01/5.jpg"><img src="img/01/5.jpg" alt="Portfolio 01 image 5"></a>
+          <a class="ribbon-card" href="img/01/6.jpg"><img src="img/01/6.jpg" alt="Portfolio 01 image 6"></a>
+          <a class="ribbon-card" href="img/01/7.jpg"><img src="img/01/7.jpg" alt="Portfolio 01 image 7"></a>
+          <a class="ribbon-card" href="img/01/8.jpg"><img src="img/01/8.jpg" alt="Portfolio 01 image 8"></a>
+          <a class="ribbon-card" href="img/01/9.jpg"><img src="img/01/9.jpg" alt="Portfolio 01 image 9"></a>
+          <a class="ribbon-card" href="img/01/10.jpg"><img src="img/01/10.jpg" alt="Portfolio 01 image 10"></a>
+          <a class="ribbon-card" href="img/01/11.jpg"><img src="img/01/11.jpg" alt="Portfolio 01 image 11"></a>
+          <a class="ribbon-card" href="img/01/12.jpg"><img src="img/01/12.jpg" alt="Portfolio 01 image 12"></a>
+          <a class="ribbon-card" href="img/01/1.jpg" aria-hidden="true"><img src="img/01/1.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/2.jpg" aria-hidden="true"><img src="img/01/2.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/3.jpg" aria-hidden="true"><img src="img/01/3.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/4.jpg" aria-hidden="true"><img src="img/01/4.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/5.jpg" aria-hidden="true"><img src="img/01/5.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/6.jpg" aria-hidden="true"><img src="img/01/6.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/7.jpg" aria-hidden="true"><img src="img/01/7.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/8.jpg" aria-hidden="true"><img src="img/01/8.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/9.jpg" aria-hidden="true"><img src="img/01/9.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/10.jpg" aria-hidden="true"><img src="img/01/10.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/11.jpg" aria-hidden="true"><img src="img/01/11.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/01/12.jpg" aria-hidden="true"><img src="img/01/12.jpg" alt=""></a>
         </div>
       </div>
-      <div class="hero-inner">
-        <p class="eyebrow">Architecture / Interior / Design</p>
-        <h1>DEMO versiya. shiorlarizni yozamiz</h1>
-        <div class="hero-row">
-          <p class="hero-copy">Vertex interyer, arxitektura va vizual konsepsiyalarni tabiat, yorug'lik va kundalik hayot ritmi bilan uyg'unlashtiradi.</p>
-          <a class="scroll-link" href="#portfolio" aria-label="Portfolioga o'tish">&darr;</a>
+
+      <div class="ribbon reveal" aria-label="Portfolio 02">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/02/1.jpg"><img src="img/02/1.jpg" alt="Portfolio 02 image 1"></a>
+          <a class="ribbon-card" href="img/02/2.jpg"><img src="img/02/2.jpg" alt="Portfolio 02 image 2"></a>
+          <a class="ribbon-card" href="img/02/3.jpg"><img src="img/02/3.jpg" alt="Portfolio 02 image 3"></a>
+          <a class="ribbon-card" href="img/02/4.jpg"><img src="img/02/4.jpg" alt="Portfolio 02 image 4"></a>
+          <a class="ribbon-card" href="img/02/6.jpg"><img src="img/02/6.jpg" alt="Portfolio 02 image 5"></a>
+          <a class="ribbon-card" href="img/02/1.jpg" aria-hidden="true"><img src="img/02/1.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/02/2.jpg" aria-hidden="true"><img src="img/02/2.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/02/3.jpg" aria-hidden="true"><img src="img/02/3.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/02/4.jpg" aria-hidden="true"><img src="img/02/4.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/02/6.jpg" aria-hidden="true"><img src="img/02/6.jpg" alt=""></a>
+        </div>
+      </div>
+
+      <div class="ribbon reveal" aria-label="Portfolio 03">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/03/1.jpg"><img src="img/03/1.jpg" alt="Portfolio 03 image 1"></a>
+          <a class="ribbon-card" href="img/03/2.jpg"><img src="img/03/2.jpg" alt="Portfolio 03 image 2"></a>
+          <a class="ribbon-card" href="img/03/3.jpg"><img src="img/03/3.jpg" alt="Portfolio 03 image 3"></a>
+          <a class="ribbon-card" href="img/03/4.jpg"><img src="img/03/4.jpg" alt="Portfolio 03 image 4"></a>
+          <a class="ribbon-card" href="img/03/5.jpg"><img src="img/03/5.jpg" alt="Portfolio 03 image 5"></a>
+          <a class="ribbon-card" href="img/03/6.jpg"><img src="img/03/6.jpg" alt="Portfolio 03 image 6"></a>
+          <a class="ribbon-card" href="img/03/7.jpg"><img src="img/03/7.jpg" alt="Portfolio 03 image 7"></a>
+          <a class="ribbon-card" href="img/03/1.jpg" aria-hidden="true"><img src="img/03/1.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/2.jpg" aria-hidden="true"><img src="img/03/2.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/3.jpg" aria-hidden="true"><img src="img/03/3.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/4.jpg" aria-hidden="true"><img src="img/03/4.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/5.jpg" aria-hidden="true"><img src="img/03/5.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/6.jpg" aria-hidden="true"><img src="img/03/6.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/03/7.jpg" aria-hidden="true"><img src="img/03/7.jpg" alt=""></a>
+        </div>
+      </div>
+
+      <div class="ribbon reveal" aria-label="Portfolio 04">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/04/photo_1_2026-05-19_17-21-48.jpg"><img src="img/04/photo_1_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 1"></a>
+          <a class="ribbon-card" href="img/04/photo_2_2026-05-19_17-21-48.jpg"><img src="img/04/photo_2_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 2"></a>
+          <a class="ribbon-card" href="img/04/photo_3_2026-05-19_17-21-48.jpg"><img src="img/04/photo_3_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 3"></a>
+          <a class="ribbon-card" href="img/04/photo_4_2026-05-19_17-21-48.jpg"><img src="img/04/photo_4_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 4"></a>
+          <a class="ribbon-card" href="img/04/photo_5_2026-05-19_17-21-48.jpg"><img src="img/04/photo_5_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 5"></a>
+          <a class="ribbon-card" href="img/04/photo_6_2026-05-19_17-21-48.jpg"><img src="img/04/photo_6_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 6"></a>
+          <a class="ribbon-card" href="img/04/photo_7_2026-05-19_17-21-48.jpg"><img src="img/04/photo_7_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 7"></a>
+          <a class="ribbon-card" href="img/04/photo_8_2026-05-19_17-21-48.jpg"><img src="img/04/photo_8_2026-05-19_17-21-48.jpg" alt="Portfolio 04 image 8"></a>
+          <a class="ribbon-card" href="img/04/photo_1_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_1_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_2_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_2_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_3_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_3_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_4_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_4_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_5_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_5_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_6_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_6_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_7_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_7_2026-05-19_17-21-48.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/04/photo_8_2026-05-19_17-21-48.jpg" aria-hidden="true"><img src="img/04/photo_8_2026-05-19_17-21-48.jpg" alt=""></a>
+        </div>
+      </div>
+
+      <div class="ribbon reveal" aria-label="Portfolio 05">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/05/photo_1_2026-05-19_17-23-39.jpg"><img src="img/05/photo_1_2026-05-19_17-23-39.jpg" alt="Portfolio 05 image 1"></a>
+          <a class="ribbon-card" href="img/05/photo_2_2026-05-19_17-23-39.jpg"><img src="img/05/photo_2_2026-05-19_17-23-39.jpg" alt="Portfolio 05 image 2"></a>
+          <a class="ribbon-card" href="img/05/photo_3_2026-05-19_17-23-39.jpg"><img src="img/05/photo_3_2026-05-19_17-23-39.jpg" alt="Portfolio 05 image 3"></a>
+          <a class="ribbon-card" href="img/05/photo_4_2026-05-19_17-23-39.jpg"><img src="img/05/photo_4_2026-05-19_17-23-39.jpg" alt="Portfolio 05 image 4"></a>
+          <a class="ribbon-card" href="img/05/photo_5_2026-05-19_17-23-39.jpg"><img src="img/05/photo_5_2026-05-19_17-23-39.jpg" alt="Portfolio 05 image 5"></a>
+          <a class="ribbon-card" href="img/05/photo_6_2026-05-19_17-24-10.jpg"><img src="img/05/photo_6_2026-05-19_17-24-10.jpg" alt="Portfolio 05 image 6"></a>
+          <a class="ribbon-card" href="img/05/photo_1_2026-05-19_17-23-39.jpg" aria-hidden="true"><img src="img/05/photo_1_2026-05-19_17-23-39.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/05/photo_2_2026-05-19_17-23-39.jpg" aria-hidden="true"><img src="img/05/photo_2_2026-05-19_17-23-39.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/05/photo_3_2026-05-19_17-23-39.jpg" aria-hidden="true"><img src="img/05/photo_3_2026-05-19_17-23-39.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/05/photo_4_2026-05-19_17-23-39.jpg" aria-hidden="true"><img src="img/05/photo_4_2026-05-19_17-23-39.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/05/photo_5_2026-05-19_17-23-39.jpg" aria-hidden="true"><img src="img/05/photo_5_2026-05-19_17-23-39.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/05/photo_6_2026-05-19_17-24-10.jpg" aria-hidden="true"><img src="img/05/photo_6_2026-05-19_17-24-10.jpg" alt=""></a>
+        </div>
+      </div>
+
+      <div class="ribbon reveal" aria-label="Portfolio 06">
+        <div class="ribbon-track">
+          <a class="ribbon-card" href="img/06/photo_1_2026-05-19_17-24-53.jpg"><img src="img/06/photo_1_2026-05-19_17-24-53.jpg" alt="Portfolio 06 image 1"></a>
+          <a class="ribbon-card" href="img/06/photo_2_2026-05-19_17-24-53.jpg"><img src="img/06/photo_2_2026-05-19_17-24-53.jpg" alt="Portfolio 06 image 2"></a>
+          <a class="ribbon-card" href="img/06/photo_3_2026-05-19_17-24-53.jpg"><img src="img/06/photo_3_2026-05-19_17-24-53.jpg" alt="Portfolio 06 image 3"></a>
+          <a class="ribbon-card" href="img/06/photo_4_2026-05-19_17-24-53.jpg"><img src="img/06/photo_4_2026-05-19_17-24-53.jpg" alt="Portfolio 06 image 4"></a>
+          <a class="ribbon-card" href="img/06/photo_5_2026-05-19_17-24-53.jpg"><img src="img/06/photo_5_2026-05-19_17-24-53.jpg" alt="Portfolio 06 image 5"></a>
+          <a class="ribbon-card" href="img/06/photo_1_2026-05-19_17-24-53.jpg" aria-hidden="true"><img src="img/06/photo_1_2026-05-19_17-24-53.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/06/photo_2_2026-05-19_17-24-53.jpg" aria-hidden="true"><img src="img/06/photo_2_2026-05-19_17-24-53.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/06/photo_3_2026-05-19_17-24-53.jpg" aria-hidden="true"><img src="img/06/photo_3_2026-05-19_17-24-53.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/06/photo_4_2026-05-19_17-24-53.jpg" aria-hidden="true"><img src="img/06/photo_4_2026-05-19_17-24-53.jpg" alt=""></a>
+          <a class="ribbon-card" href="img/06/photo_5_2026-05-19_17-24-53.jpg" aria-hidden="true"><img src="img/06/photo_5_2026-05-19_17-24-53.jpg" alt=""></a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="portfolio">
-      <div class="section-heading reveal">
-        <p class="section-kicker">Portfolio</p>
-        <h2 class="section-title">Detallarga boy, zamonaviy klassika ruhidagi interyerlar.</h2>
+    <section class="section" id="videos">
+      <div class="section-head reveal">
+        <h2>Video</h2>
+        <span>Play on view</span>
       </div>
-
-      <div class="portfolio">
-        <article class="project reveal">
-          <img src="img/1 (3).jpg" alt="Dining room interior">
-          <div class="project-info">
-            <span class="project-number">01 / Interior</span>
-            <h3>Dining Hall</h3>
-            <p>Private residence</p>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <img src="img/6 (2).jpg" alt="Living room interior">
-          <div class="project-info">
-            <span class="project-number">02 / Living</span>
-            <h3>Soft Classic</h3>
-            <p>Apartment design</p>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <img src="img/1.jpg" alt="Bedroom interior">
-          <div class="project-info">
-            <span class="project-number">03 / Bedroom</span>
-            <h3>Calm Suite</h3>
-            <p>Master bedroom</p>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <img src="img/3 (3).jpg" alt="Dining space interior">
-          <div class="project-info">
-            <span class="project-number">04 / Dining</span>
-            <h3>Formal Room</h3>
-            <p>Classic interior</p>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <img src="img/7 (2).jpg" alt="Sitting area interior">
-          <div class="project-info">
-            <span class="project-number">05 / Lounge</span>
-            <h3>Marble Lounge</h3>
-            <p>Residential concept</p>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <img src="img/9.jpg" alt="Living area with TV wall">
-          <div class="project-info">
-            <span class="project-number">06 / Media</span>
-            <h3>Evening Room</h3>
-            <p>Interior visualization</p>
-          </div>
-        </article>
-      </div>
-
-      <div class="portfolio-note reveal">
-        <div>
-          <strong>Atmosfera</strong>
-          <span>Yorug'lik, material va ranglar bitta sokin kompozitsiyaga yig'iladi.</span>
+      <div class="video-grid">
+        <div class="video-card reveal">
+          <video src="img/Yotoq0220.mp4" poster="img/1.jpg" muted loop playsinline preload="metadata"></video>
+          <span>Bedroom</span>
         </div>
-        <div>
-          <strong>Proporsiya</strong>
-          <span>Har bir devor, mebel va dekor joyi makon ritmiga moslanadi.</span>
+        <div class="video-card reveal">
+          <video src="img/03116.mp4" poster="img/1 (3).jpg" muted loop playsinline preload="metadata"></video>
+          <span>Interior</span>
         </div>
-        <div>
-          <strong>Realizatsiya</strong>
-          <span>G'oyadan chizmagacha bo'lgan jarayon tartibli va tushunarli olib boriladi.</span>
+        <div class="video-card reveal">
+          <video src="img/rekl_l.mp4" poster="img/2.jpg" muted loop playsinline preload="metadata"></video>
+          <span>Visual</span>
         </div>
-      </div>
-    </section>
-
-    <section class="motion-band" id="motion">
-      <div class="motion">
-        <div class="motion-heading reveal">
-          <p class="section-kicker">Cinematic motion tour</p>
-          <h2 class="motion-title">Interyer rakurslari sokin kamera harakati bilan bir oqimga ulanadi.</h2>
-        </div>
-
-        <div class="motion-stage reveal" aria-label="Interior cinematic tour">
-          <div class="motion-frame is-active">
-            <img src="img/video-frames/frame-01.jpg" alt="Dining hall main angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-02.jpg" alt="Dining hall side angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-03.jpg" alt="Dining hall close angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-04.jpg" alt="Dining hall frontal angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-05.jpg" alt="Dining hall window angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-06.jpg" alt="Dining table top angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-07.jpg" alt="Dining room symmetrical angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-08.jpg" alt="Dining room chandelier angle">
-          </div>
-          <div class="motion-frame">
-            <img src="img/video-frames/frame-09.jpg" alt="Classic dining view">
-          </div>
-
-          <div class="motion-copy">
-            <h3>Interior Walkthrough</h3>
-            <p>Rakurslar makonning yorug'ligi, mebel ritmi va dekor detallarini bir qarashda his qildiradi.</p>
-          </div>
-
-          <div class="motion-controls" aria-label="Motion tour controls">
-            <button class="motion-dot is-active" type="button" aria-label="1-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="2-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="3-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="4-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="5-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="6-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="7-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="8-rakurs"><span></span></button>
-            <button class="motion-dot" type="button" aria-label="9-rakurs"><span></span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-band" id="about">
-      <div class="about">
-        <div class="about-grid reveal">
-          <h2>Har bir loyiha makonning ovozi, yorug'ligi va hayot tarzi bilan boshlanadi.</h2>
-          <p>Biz interyerni faqat chiroyli tasvir sifatida emas, yashashga qulay va uzoq vaqt qadri yo'qolmaydigan muhit sifatida ko'ramiz. Har bir qaror kompozitsiya, material va foydalanish qulayligi bilan asoslanadi.</p>
-        </div>
-        <div class="stats reveal" aria-label="Studio ko'rsatkichlari">
-          <div class="stat">
-            <strong>3D</strong>
-            <span>Fotoreal vizual</span>
-          </div>
-          <div class="stat">
-            <strong>360</strong>
-            <span>To'liq yondashuv</span>
-          </div>
-          <div class="stat">
-            <strong>1:1</strong>
-            <span>Shaxsiy konsepsiya</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="services">
-      <div class="section-heading reveal">
-        <p class="section-kicker">Xizmatlar</p>
-        <h2 class="section-title">Loyihani g'oyadan tayyor konsepsiyagacha olib boramiz.</h2>
-      </div>
-
-      <div class="services reveal">
-        <article class="service">
-          <span>01</span>
-          <h3>Interyer dizayni</h3>
-          <p>Rejalashtirish, stilistika, rang va materiallar tanlovi, mebel joylashuvi.</p>
-        </article>
-        <article class="service">
-          <span>02</span>
-          <h3>Arxitektura konsepsiyasi</h3>
-          <p>Uy, villa va tijoriy obyektlar uchun hajm, fasad va makon ssenariysi.</p>
-        </article>
-        <article class="service">
-          <span>03</span>
-          <h3>3D vizualizatsiya</h3>
-          <p>Yakuniy makonni oldindan ko'rish uchun fotorealistik renderlar.</p>
-        </article>
-        <article class="service">
-          <span>04</span>
-          <h3>Working drawings</h3>
-          <p>Usta va pudratchilar uchun aniq chizmalar, o'lchamlar va texnik paket.</p>
-        </article>
-        <article class="service">
-          <span>05</span>
-          <h3>Material selection</h3>
-          <p>Pol, devor, yoritish, tekstil va dekor bo'yicha uyg'un tanlovlar.</p>
-        </article>
-        <article class="service">
-          <span>06</span>
-          <h3>Mualliflik nazorati</h3>
-          <p>Loyiha realizatsiyasi davomida dizayn qarorlarining saqlanishini kuzatish.</p>
-        </article>
       </div>
     </section>
 
     <section class="contact-band" id="contact">
       <div class="contact">
-        <h2 class="reveal">Yangi makon haqida suhbatni boshlaymiz.</h2>
-        <div class="contact-list reveal">
-          <div class="contact-item">
-            <span class="contact-label">Location</span>
-            <div class="contact-value">Tashkent, Uzbekistan</div>
+        <img class="contact-logo reveal" src="img/vertex-logo-white.png" alt="Vertex">
+        <div class="contact-block reveal">
+          <b>Tashkent, Uzbekistan</b>
+          <span>41.28141321424266, 69.22920565066667</span>
+        </div>
+        <div class="contact-block reveal">
+          <a href="mailto:info@vertex.uz">info@vertex.uz</a>
+          <span>Contact UZ</span>
+          <b>+998 90 000 00 00</b>
+          <a href="mailto:info@vertex.uz">info@vertex.uz</a>
+        </div>
+        <div class="contact-block reveal">
+          <div class="socials" aria-label="Ijtimoiy tarmoqlar">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Telegram">TG</a>
+            <a href="#" aria-label="WhatsApp">WA</a>
           </div>
-          <div class="contact-item">
-            <span class="contact-label">Projects</span>
-            <div class="contact-value">Residential / Commercial / Visualisation</div>
-          </div>
-          <div class="contact-item">
-            <span class="contact-label">Contact</span>
-            <div class="contact-value">Telegram / Instagram / Email</div>
-          </div>
+          <span class="copyright">&copy; 2026 Vertex - Architecture & Interior Design</span>
         </div>
       </div>
-      <footer class="footer">
-        <img src="img/vertex-logo-white.png" alt="Vertex">
-        <span>&copy; 2026 Vertex - Architecture & Interior Design</span>
-      </footer>
+      <div class="map" aria-label="Vertex lokatsiya xaritasi">
+        <iframe
+          title="Vertex location"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=41.28141321424266,69.22920565066667&z=16&output=embed">
+        </iframe>
+      </div>
     </section>
   </main>
 
@@ -1177,81 +681,100 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.16 });
+    }, { threshold: 0.12 });
 
     document.querySelectorAll(".reveal").forEach((element) => {
       revealObserver.observe(element);
     });
 
-    document.querySelectorAll(".portfolio .reveal, .services .service").forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index * 90, 360)}ms`;
+    const playableVideos = Array.from(document.querySelectorAll(".video-card video"));
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.38 });
+
+    playableVideos.forEach((video) => {
+      video.pause();
+      videoObserver.observe(video);
     });
 
-    const heroSlides = Array.from(document.querySelectorAll(".hero-slide"));
-    let activeHero = 0;
+    const ribbons = Array.from(document.querySelectorAll(".ribbon"));
 
-    function setHeroSlide(index) {
-      heroSlides.forEach((slide, slideIndex) => {
-        slide.classList.toggle("is-active", slideIndex === index);
-      });
-      activeHero = index;
-    }
+    ribbons.forEach((ribbon, index) => {
+      const track = ribbon.querySelector(".ribbon-track");
+      if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
 
-    if (heroSlides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      window.setInterval(() => {
-        setHeroSlide((activeHero + 1) % heroSlides.length);
-      }, 6200);
-    }
+      const state = {
+        position: 0,
+        velocity: 0,
+        targetVelocity: 0,
+        lastTime: 0,
+        frame: 0,
+        direction: index % 2 === 0 ? 1 : -1
+      };
 
-    const motionStage = document.querySelector(".motion-stage");
-    const motionFrames = Array.from(document.querySelectorAll(".motion-frame"));
-    const motionDots = Array.from(document.querySelectorAll(".motion-dot"));
-    const motionInterval = 4300;
-    let activeMotion = 0;
-    let motionTimer;
+      const cycleWidth = () => track.scrollWidth / 2;
 
-    function setMotionFrame(index) {
-      motionFrames.forEach((frame, frameIndex) => {
-        frame.style.transform = "";
-        frame.classList.toggle("is-active", frameIndex === index);
-        frame.classList.toggle("was-active", frameIndex === activeMotion && frameIndex !== index);
-      });
+      const animate = (time) => {
+        if (!state.lastTime) {
+          state.lastTime = time;
+        }
 
-      motionDots.forEach((dot, dotIndex) => {
-        dot.classList.toggle("is-active", dotIndex === index);
-      });
+        const delta = Math.min(time - state.lastTime, 32);
+        state.lastTime = time;
+        state.velocity += (state.targetVelocity - state.velocity) * 0.08;
+        state.position += state.velocity * delta;
 
-      activeMotion = index;
-    }
+        const width = cycleWidth();
+        if (width > 0) {
+          state.position = ((state.position % width) + width) % width;
+          track.style.transform = `translate3d(${-state.position}px, 0, 0)`;
+        }
 
-    function playMotion() {
-      window.clearInterval(motionTimer);
-      motionTimer = window.setInterval(() => {
-        setMotionFrame((activeMotion + 1) % motionFrames.length);
-      }, motionInterval);
-    }
+        if (Math.abs(state.velocity) > 0.004 || Math.abs(state.targetVelocity) > 0.004) {
+          state.frame = window.requestAnimationFrame(animate);
+        } else {
+          state.velocity = 0;
+          state.lastTime = 0;
+          state.frame = 0;
+        }
+      };
 
-    motionDots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-        setMotionFrame(index);
-        playMotion();
-      });
+      const start = () => {
+        const speed = Math.max(cycleWidth() / 26000, 0.04);
+        state.targetVelocity = speed * state.direction;
+        if (!state.frame) {
+          state.frame = window.requestAnimationFrame(animate);
+        }
+      };
+
+      const stop = () => {
+        state.targetVelocity = 0;
+        if (!state.frame) {
+          state.frame = window.requestAnimationFrame(animate);
+        }
+      };
+
+      ribbon.addEventListener("pointerenter", start);
+      ribbon.addEventListener("pointerleave", stop);
+      ribbon.addEventListener("focusin", start);
+      ribbon.addEventListener("focusout", stop);
+
+      window.addEventListener("load", () => {
+        if (state.direction < 0) {
+          state.position = cycleWidth();
+          track.style.transform = `translate3d(${-state.position}px, 0, 0)`;
+        }
+      }, { once: true });
     });
-
-    if (motionStage && motionFrames.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      playMotion();
-
-      motionStage.addEventListener("pointermove", (event) => {
-        const rect = motionStage.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        motionFrames[activeMotion].style.transform = `scale(1.012) translate3d(${x * -10}px, ${y * -8}px, 0)`;
-      });
-
-      motionStage.addEventListener("pointerleave", () => {
-        motionFrames[activeMotion].style.transform = "";
-      });
-    }
   </script>
 </body>
 </html>
